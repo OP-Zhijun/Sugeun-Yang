@@ -63,13 +63,27 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
   display: flex; align-items: center; gap: 10px;
 }
 .topbar-brand:hover { color: var(--topbar-text); text-decoration: none; opacity: 0.85; }
-.topbar-brand .brand-mark {
-  width: 28px; height: 28px;
-  background: #c5050c;
-  display: inline-flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.85rem;
-  color: #fff;
+.topbar-brand .brand-logo {
+  height: 34px;
+  width: auto;
+  background: #fff;
+  padding: 4px 10px;
   border-radius: 2px;
+  display: block;
+}
+.topbar-brand .brand-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--topbar-text);
+  letter-spacing: 0.01em;
+  padding-left: 4px;
+  border-left: 1px solid rgba(255,255,255,0.25);
+  margin-left: 4px;
+  padding-left: 14px;
+}
+@media (max-width: 600px) {
+  .topbar-brand .brand-logo { height: 28px; padding: 3px 8px; }
+  .topbar-brand .brand-text { font-size: 0.86rem; padding-left: 10px; }
 }
 .topbar-nav {
   display: flex; gap: 22px;
@@ -257,6 +271,37 @@ main {
   line-height: 1.65;
   max-width: 780px;
   margin-bottom: 18px;
+}
+
+/* ── COLLABORATIONS MAP ───────────────────────── */
+.collab {
+  margin-top: 28px;
+  padding: 22px 26px 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.collab-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.collab-sub {
+  font-size: 0.86rem;
+  color: var(--text-soft);
+  margin-bottom: 16px;
+  max-width: 720px;
+}
+.collab-sub a { color: var(--link); }
+.collab-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-soft);
+}
+@media (max-width: 760px) {
+  .collab { padding: 16px 16px 18px; }
 }
 
 /* ── FINGERPRINT ──────────────────────────────── */

@@ -442,7 +442,7 @@
         .style("cursor", "pointer")
         .on("mouseenter", function (e, d) {
           d3.select(this).attr("fill-opacity", 0.95);
-          tip.html(`<strong>${ISO2_TO_NAME[d.code] || d.code}</strong><br>${d.papers} co-authored papers`)
+          tip.html(`<strong>${countryName(d.code)}</strong><br>${d.papers} co-authored papers`)
              .style("opacity", 1);
         })
         .on("mousemove", e => {
@@ -529,7 +529,7 @@
     tbody.innerHTML = insts.map(i => `
       <tr>
         <td><strong>${i.name}</strong></td>
-        <td>${ISO2_TO_NAME[i.country] || i.country || "—"}</td>
+        <td>${countryName(i.country) || "—"}</td>
         <td class="num">${i.papers}</td>
         <td>${i.is_external ? '<span class="tag external">External</span>' : '<span class="tag internal">Internal</span>'}</td>
       </tr>
@@ -557,6 +557,18 @@
   }
 
   // ─── HELPERS ─────────────────────────────────
+  const _regionNames = (typeof Intl !== "undefined" && Intl.DisplayNames)
+    ? new Intl.DisplayNames(["en"], { type: "region" })
+    : null;
+
+  function countryName(code) {
+    if (!code) return "";
+    if (_regionNames) {
+      try { return _regionNames.of(code) || code; } catch { /* fall through */ }
+    }
+    return code;
+  }
+
   function shortName(name) {
     if (!name) return "";
     const parts = name.split(/[\s,]+/).filter(Boolean);
@@ -591,11 +603,4 @@
     "800":"UG","804":"UA","807":"MK","818":"EG","826":"GB","834":"TZ","840":"US","850":"VI","854":"BF","858":"UY",
     "860":"UZ","862":"VE","876":"WF","882":"WS","887":"YE","894":"ZM"
   };
-  const ISO2_TO_NAME = {
-    "KR":"Republic of Korea","CN":"China","US":"United States","JP":"Japan","TH":"Thailand","VN":"Vietnam",
-    "IN":"India","ID":"Indonesia","PH":"Philippines","MY":"Malaysia","SG":"Singapore","TW":"Taiwan",
-    "GB":"United Kingdom","DE":"Germany","FR":"France","IT":"Italy","ES":"Spain","NL":"Netherlands",
-    "SE":"Sweden","CH":"Switzerland","CA":"Canada","AU":"Australia","RU":"Russia","BR":"Brazil","MX":"Mexico"
-  };
-
 })();

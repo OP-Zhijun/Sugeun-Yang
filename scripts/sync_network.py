@@ -22,7 +22,7 @@ def fetch_works():
     cursor = "*"
     select = ",".join([
         "id", "title", "doi", "publication_year",
-        "authorships", "concepts", "host_venue",
+        "authorships", "concepts", "primary_location",
     ])
     base = "https://api.openalex.org/works"
     while True:
@@ -63,7 +63,9 @@ def aggregate(works):
         year = w.get("publication_year")
         title = w.get("title") or ""
         doi = w.get("doi")
-        venue = (w.get("host_venue") or {}).get("display_name") or ""
+        primary = w.get("primary_location") or {}
+        source  = primary.get("source") or {}
+        venue   = source.get("display_name") or ""
 
         authorships = w.get("authorships") or []
         co_ids_in_paper = []

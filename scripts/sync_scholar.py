@@ -1,20 +1,22 @@
 """
-Sync Google Scholar metrics into index.html.
+Sync Google Scholar metrics into index.html via SerpAPI.
 
-Designed to run weekly via GitHub Actions. Fails gracefully:
-- If Scholar blocks the request, exits 0 without modifying HTML.
-- If the returned data looks wrong (suspiciously low values), refuses to update.
-- If nothing changed, the workflow's git-diff check skips the commit.
+SerpAPI handles captcha/proxy/throttling against Google Scholar so the
+GitHub Actions runner gets clean results every time. Free tier covers
+weekly runs comfortably (~5/month vs 100/month limit).
+
+Set env var SERPAPI_KEY (stored as GitHub secret).
 """
 import json
+import os
 import re
 import sys
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-from scholarly import scholarly
-
-SCHOLAR_ID = "X1B7JX8AAAAJ"
+SCHOLAR_AUTHOR_ID = "X1B7JX8AAAAJ"
 ROOT = Path(__file__).resolve().parent.parent
 HTML_PATH = ROOT / "index.html"
 DATA_DIR = ROOT / "data"
@@ -22,25 +24,52 @@ START_YEAR = 2009
 
 
 def fetch_scholar():
-    try:
-        author = scholarly.search_author_id(SCHOLAR_ID)
-        author = scholarly.fill(author, sections=["indices", "counts"])
-    except Exception as exc:
-        print(f"[sync] Scholar fetch failed: {exc}", file=sys.stderr)
+    """Fetch metrics via SerpAPI's google_scholar_author endpoint."""
+    api_key = os.environ.get("SERPAPI_KEY")
+    if not api_key:
+        print("[sync] SERPAPI_KEY not set; skipping update.", file=sys.stderr)
         return None
 
-    cpy_raw = author.get("cites_per_year", {}) or {}
-    cpy = {int(k): int(v) for k, v in cpy_raw.items()}
+    params = {
+        "engine":    "google_scholar_author",
+        "author_id": SCHOLAR_AUTHOR_ID,
+        "hl":        "en",
+        "api_key":   api_key,
+    }
+    url = "https://serpapi.com/search.json?" + urllib.parse.urlencode(params)
+    try:
+        with urllib.request.urlopen(url, timeout=30) as r:
+            payload = json.loads(r.read().decode("utf-8"))
+    except Exception as exc:
+        print(f"[sync] SerpAPI fetch failed: {exc}", file=sys.stderr)
+        return None
+
+    if "error" in payload:
+        print(f"[sync] SerpAPI error: {payload['error']}", file=sys.stderr)
+        return None
+
+    cited = payload.get("cited_by") or {}
+    table = cited.get("table") or []
+    graph = cited.get("graph") or []
+
+    # table is a list of single-key dicts: citations / h_index / i10_index
+    metrics = {}
+    for row in table:
+        for k, v in row.items():
+            metrics[k] = v  # {"all": N, "since_YYYY": N}
+
+    cites_per_year = {int(g["year"]): int(g["citations"]) for g in graph if "year" in g}
 
     return {
-        "total_citations": int(author.get("citedby", 0)),
-        "y5_citations":    int(author.get("citedby5y", 0)),
-        "h_index":         int(author.get("hindex", 0)),
-        "y5_h_index":      int(author.get("hindex5y", 0)),
-        "i10_index":       int(author.get("i10index", 0)),
-        "y5_i10_index":    int(author.get("i10index5y", 0)),
-        "cites_per_year":  cpy,
+        "total_citations": int(metrics.get("citations", {}).get("all", 0)),
+        "y5_citations":    int(metrics.get("citations", {}).get("since_2021", 0)),
+        "h_index":         int(metrics.get("h_index", {}).get("all", 0)),
+        "y5_h_index":      int(metrics.get("h_index", {}).get("since_2021", 0)),
+        "i10_index":       int(metrics.get("i10_index", {}).get("all", 0)),
+        "y5_i10_index":    int(metrics.get("i10_index", {}).get("since_2021", 0)),
+        "cites_per_year":  cites_per_year,
         "fetched_at":      datetime.now(timezone.utc).isoformat(),
+        "source":          "SerpAPI · google_scholar_author",
     }
 
 
@@ -88,7 +117,6 @@ def replace_pill(html, label, new_value):
 def update_html(data):
     html = HTML_PATH.read_text(encoding="utf-8")
 
-    # 1. Citations table (3 rows: Citations, h-index, i10-index)
     html = re.sub(
         r'<tr><th>Citations</th><td>[\d,]+</td><td>[\d,]+</td></tr>',
         f'<tr><th>Citations</th><td>{fmt(data["total_citations"])}</td><td>{fmt(data["y5_citations"])}</td></tr>',
@@ -105,12 +133,10 @@ def update_html(data):
         html,
     )
 
-    # 2. Metric pills at top of profile
     html = replace_pill(html, "Citations", fmt(data["total_citations"]))
     html = replace_pill(html, "h-index",   str(data["h_index"]))
     html = replace_pill(html, "i10-index", str(data["i10_index"]))
 
-    # 3. Bar chart — replace the .cites-bars block and .cites-years block
     bars, labels, peak_year, peak_val = build_bars(data["cites_per_year"])
     bars_block = "\n            ".join(bars)
     labels_block = "".join(labels)
@@ -129,8 +155,6 @@ def update_html(data):
         count=1,
         flags=re.DOTALL,
     )
-
-    # 4. Peak label in chart header
     html = re.sub(
         r'<span>peak &middot; \d+ \(\d+\)</span>',
         f'<span>peak &middot; {peak_val} ({peak_year})</span>',
@@ -164,7 +188,6 @@ def main():
     (DATA_DIR / "scholar_latest.json").write_text(
         json.dumps(data, indent=2, default=str), encoding="utf-8"
     )
-
     update_html(data)
     print("[sync] index.html updated.")
     return 0

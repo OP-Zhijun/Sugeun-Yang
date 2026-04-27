@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-27T11:43:23.943753+00:00",
+  "fetched_at": "2026-04-27T13:21:36.808694+00:00",
   "person": {
     "openalex_id": "A5042254280",
     "name": "Su-Geun Yang",
@@ -5952,6 +5952,95 @@
         "https://openalex.org/A5061132235",
         "https://openalex.org/A5112713262",
         "https://openalex.org/A5103294885"
+      ]
+    }
+  ],
+  "fingerprint": [
+    {
+      "field": "Medicine",
+      "topics": [
+        {
+          "name": "Photodynamic Therapy Research Studies",
+          "weight": 100
+        },
+        {
+          "name": "Gallbladder and Bile Duct Disorders",
+          "weight": 99
+        },
+        {
+          "name": "Spaceflight effects on biology",
+          "weight": 80
+        },
+        {
+          "name": "Advanced MRI Techniques and Applications",
+          "weight": 80
+        },
+        {
+          "name": "MRI in cancer diagnosis",
+          "weight": 80
+        },
+        {
+          "name": "Gastric Cancer Management and Outcomes",
+          "weight": 80
+        }
+      ]
+    },
+    {
+      "field": "Materials Science",
+      "topics": [
+        {
+          "name": "Nanoparticle-Based Drug Delivery",
+          "weight": 100
+        },
+        {
+          "name": "Lanthanide and Transition Metal Complexes",
+          "weight": 40
+        },
+        {
+          "name": "Advanced Nanomaterials in Catalysis",
+          "weight": 25
+        },
+        {
+          "name": "Polymer Surface Interaction Studies",
+          "weight": 20
+        },
+        {
+          "name": "Nanocluster Synthesis and Applications",
+          "weight": 15
+        },
+        {
+          "name": "Electrospun Nanofibers in Biomedical Applications",
+          "weight": 15
+        }
+      ]
+    },
+    {
+      "field": "Biochemistry, Genetics and Molecular Biology",
+      "topics": [
+        {
+          "name": "Cancer, Hypoxia, and Metabolism",
+          "weight": 100
+        },
+        {
+          "name": "Cancer therapeutics and mechanisms",
+          "weight": 63
+        },
+        {
+          "name": "Cancer, Lipids, and Metabolism",
+          "weight": 50
+        },
+        {
+          "name": "Protein Degradation and Inhibitors",
+          "weight": 49
+        },
+        {
+          "name": "Histone Deacetylase Inhibitors Research",
+          "weight": 38
+        },
+        {
+          "name": "Microbial Inactivation Methods",
+          "weight": 38
+        }
       ]
     }
   ]

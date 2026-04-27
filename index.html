@@ -188,41 +188,11 @@
     <section class="section" id="fingerprint">
       <h2>Fingerprint</h2>
       <p class="fingerprint-note">
-        Topics are derived from the titles and keywords of Prof. Yang's publications. Weights reflect frequency and prominence within the lab's research output &mdash; an approximation of the Elsevier Pure fingerprint methodology.
+        Auto-generated from <a href="https://openalex.org/" target="_blank" rel="noopener">OpenAlex</a> topic clusters across all of Prof. Yang's indexed publications. Weights are normalized within each field (top topic = 100%). Refreshed weekly.
       </p>
 
-      <div class="fp-grid">
-
-        <div class="fp-cat">
-          <h3>Pharmacology, Toxicology &amp; Pharmaceutics</h3>
-          <div class="fp-row"><div class="topic"><span class="label">Drug Delivery System</span><div class="bar"><i style="width:100%"></i></div></div><span class="pct">100%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Nanoparticles</span><div class="bar"><i style="width:95%"></i></div></div><span class="pct">95%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Polymer Drug Conjugate</span><div class="bar"><i style="width:78%"></i></div></div><span class="pct">78%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Photodynamic Therapy</span><div class="bar"><i style="width:65%"></i></div></div><span class="pct">65%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Pharmaceutical Engineering</span><div class="bar"><i style="width:58%"></i></div></div><span class="pct">58%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Bioavailability</span><div class="bar"><i style="width:45%"></i></div></div><span class="pct">45%</span></div>
-        </div>
-
-        <div class="fp-cat">
-          <h3>Medicine &amp; Cancer Research</h3>
-          <div class="fp-row"><div class="topic"><span class="label">Cancer Therapy</span><div class="bar"><i style="width:100%"></i></div></div><span class="pct">100%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Magnetic Resonance Imaging</span><div class="bar"><i style="width:75%"></i></div></div><span class="pct">75%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Lung Cancer</span><div class="bar"><i style="width:62%"></i></div></div><span class="pct">62%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Colon Cancer</span><div class="bar"><i style="width:58%"></i></div></div><span class="pct">58%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Hepatocellular Carcinoma</span><div class="bar"><i style="width:50%"></i></div></div><span class="pct">50%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Photothermal Therapy</span><div class="bar"><i style="width:45%"></i></div></div><span class="pct">45%</span></div>
-        </div>
-
-        <div class="fp-cat">
-          <h3>Biochemistry &amp; Biomaterials</h3>
-          <div class="fp-row"><div class="topic"><span class="label">Biomaterials</span><div class="bar"><i style="width:100%"></i></div></div><span class="pct">100%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Hydrogels</span><div class="bar"><i style="width:70%"></i></div></div><span class="pct">70%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Peptide Engineering</span><div class="bar"><i style="width:62%"></i></div></div><span class="pct">62%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Microgravity &amp; Space Biology</span><div class="bar"><i style="width:55%"></i></div></div><span class="pct">55%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Cellular Senescence</span><div class="bar"><i style="width:42%"></i></div></div><span class="pct">42%</span></div>
-          <div class="fp-row"><div class="topic"><span class="label">Tumor Immunology</span><div class="bar"><i style="width:40%"></i></div></div><span class="pct">40%</span></div>
-        </div>
-
+      <div class="fp-grid" id="fp-grid">
+        <div class="fp-loading">Loading fingerprint&hellip;</div>
       </div>
     </section>
 
@@ -605,10 +575,10 @@
           <h3 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 12px; color: var(--text);">Professional Experience</h3>
           <ul class="cv">
             <li>
-              <span class="yr">&mdash;</span>
+              <span class="yr"></span>
               <span class="what">
-                <span class="ko">Professor (current)</span>
-                <span class="en">Inha University College of Medicine (current)</span>
+                <span class="ko">Professor</span>
+                <span class="en">Inha University College of Medicine</span>
               </span>
             </li>
             <li>
@@ -669,6 +639,7 @@
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
   <script src="js/collab-map.js"></script>
+  <script src="js/fingerprint.js"></script>
 
 </body>
 </html>

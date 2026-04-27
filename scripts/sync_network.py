@@ -22,7 +22,7 @@ def fetch_works():
     cursor = "*"
     select = ",".join([
         "id", "title", "doi", "publication_year",
-        "authorships", "concepts", "primary_location",
+        "authorships", "concepts", "topics", "primary_location",
     ])
     base = "https://api.openalex.org/works"
     while True:
@@ -47,6 +47,46 @@ def fetch_works():
         if not cursor or not page:
             break
     return works
+
+
+def build_fingerprint(works, top_fields=3, top_topics_per_field=6):
+    """
+    Pure-style fingerprint from OpenAlex `topics`.
+
+    Each work's topics carry: display_name, score, plus subfield/field/domain.
+    We sum scores per topic, group by field, pick top fields and top topics
+    per field, then normalize to percentages within each field.
+    """
+    fields = {}  # field_name -> {"total": float, "topics": {topic_name: score}}
+
+    for w in works:
+        for t in (w.get("topics") or []):
+            name = t.get("display_name")
+            score = float(t.get("score") or 0.0)
+            field = (t.get("field") or {}).get("display_name") or "Other"
+            if not name or score <= 0:
+                continue
+
+            f = fields.setdefault(field, {"total": 0.0, "topics": {}})
+            f["total"] += score
+            f["topics"][name] = f["topics"].get(name, 0.0) + score
+
+    ranked_fields = sorted(fields.items(), key=lambda kv: -kv[1]["total"])[:top_fields]
+
+    out = []
+    for field_name, data in ranked_fields:
+        top = sorted(data["topics"].items(), key=lambda kv: -kv[1])[:top_topics_per_field]
+        if not top:
+            continue
+        max_score = top[0][1] or 1.0
+        out.append({
+            "field": field_name,
+            "topics": [
+                {"name": n, "weight": round(s / max_score * 100)}
+                for n, s in top
+            ],
+        })
+    return out
 
 
 def aggregate(works):
@@ -169,9 +209,11 @@ def main():
 
     print(f"[network] Fetched {len(works)} works.")
     data = aggregate(works)
+    data["fingerprint"] = build_fingerprint(works)
     print(f"[network] Co-authors: {data['totals']['co_authors']}")
     print(f"[network] Institutions: {data['totals']['institutions']}")
     print(f"[network] Countries: {data['totals']['countries']}")
+    print(f"[network] Fingerprint fields: {len(data['fingerprint'])}")
 
     DATA_DIR.mkdir(exist_ok=True)
     out = DATA_DIR / "network.json"

@@ -24,8 +24,11 @@ jobs:
       - name: Install scholarly
         run: pip install --quiet scholarly
 
-      - name: Run sync script
+      - name: Sync Scholar metrics
         run: python scripts/sync_scholar.py
+
+      - name: Sync OpenAlex network
+        run: python scripts/sync_network.py
 
       - name: Commit & push if changed
         run: |

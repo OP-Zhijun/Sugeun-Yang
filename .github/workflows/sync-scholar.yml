@@ -27,11 +27,17 @@ jobs:
       - name: Install scholarly
         run: pip install --quiet scholarly
 
-      - name: Sync Scholar metrics
-        run: python scripts/sync_scholar.py
-
+      # Network sync runs first so it's never blocked by Scholar issues.
+      # OpenAlex is fast and reliable; only stdlib needed.
       - name: Sync OpenAlex network
         run: python scripts/sync_network.py
+
+      # Scholar can hang or captcha on cloud runners; bound it and
+      # continue on failure so the workflow always reaches the commit step.
+      - name: Sync Scholar metrics
+        timeout-minutes: 4
+        continue-on-error: true
+        run: python scripts/sync_scholar.py
 
       - name: Commit & push if changed
         run: |

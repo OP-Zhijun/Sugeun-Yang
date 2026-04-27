@@ -163,9 +163,15 @@
       <div class="collab">
         <h3 class="collab-title">Collaborations and top research areas from the last five years</h3>
         <p class="collab-sub">
-          Recent external collaboration on country/territory level &mdash; partners across China, Korea, and Southeast Asia.
+          Recent external collaboration on country/territory level. Hover the dots for co-authored paper counts. Country positions and counts are approximated from publication co-author affiliations and lab member nationalities.
         </p>
-        <img src="assets/images/collaboration-map.png" alt="Collaboration map showing research partners across East Asia" class="collab-map">
+        <div class="collab-map-wrap">
+          <svg id="collab-map-svg" role="img" aria-label="World map of research collaborations"></svg>
+        </div>
+        <div class="collab-legend">
+          <span class="item"><span class="swatch dot"></span> Active collaborator country (size &propto; co-authored papers)</span>
+          <span class="item"><span class="swatch home"></span> Home institution &mdash; Inha University, Korea</span>
+        </div>
       </div>
     </section>
 
@@ -649,6 +655,11 @@
 
   <!-- PlumX widget loader -->
   <script type="text/javascript" src="//cdn.plu.mx/widget-popup.js"></script>
+
+  <!-- D3 + TopoJSON for collaboration map -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+  <script src="js/collab-map.js"></script>
 
 </body>
 </html>

@@ -72,18 +72,16 @@ def aggregate(works):
 
         for a in authorships:
             au = a.get("author") or {}
-            au_id = au.get("id", "")
-            if not au_id or target in au_id:
-                # skip Yang himself
-                if target not in au_id:
-                    continue
-                else:
-                    continue
+            au_id = au.get("id") or ""
+            if not au_id:
+                continue
+            if target in au_id:
+                continue  # skip Yang himself
             co_ids_in_paper.append(au_id)
 
             entry = co_authors.setdefault(au_id, {
                 "id": au_id,
-                "name": au.get("display_name", ""),
+                "name": au.get("display_name") or "",
                 "orcid": au.get("orcid"),
                 "papers": 0,
                 "years": set(),
@@ -99,8 +97,8 @@ def aggregate(works):
                 if not inst_id:
                     continue
                 inst_country = inst.get("country_code") or ""
-                inst_name = inst.get("display_name", "")
-                inst_type = inst.get("type", "")
+                inst_name    = inst.get("display_name") or ""
+                inst_type    = inst.get("type") or ""
                 inst_entry = institutions.setdefault(inst_id, {
                     "id": inst_id,
                     "name": inst_name,

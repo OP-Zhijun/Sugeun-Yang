@@ -7,6 +7,7 @@ weekly runs comfortably (~5/month vs 100/month limit).
 
 Set env var SERPAPI_KEY (stored as GitHub secret).
 """
+import html
 import json
 import os
 import re
@@ -51,6 +52,7 @@ def fetch_scholar():
     cited = payload.get("cited_by") or {}
     table = cited.get("table") or []
     graph = cited.get("graph") or []
+    articles = payload.get("articles") or []
 
     # table is a list of single-key dicts: citations / h_index / i10_index
     metrics = {}
@@ -68,6 +70,7 @@ def fetch_scholar():
         "i10_index":       int(metrics.get("i10_index", {}).get("all", 0)),
         "y5_i10_index":    int(metrics.get("i10_index", {}).get("since_2021", 0)),
         "cites_per_year":  cites_per_year,
+        "articles":        articles,
         "fetched_at":      datetime.now(timezone.utc).isoformat(),
         "source":          "SerpAPI · google_scholar_author",
     }
@@ -102,6 +105,55 @@ def build_bars(cites_per_year):
 
     labels = [f"<span>'{str(y)[-2:]}</span>" for y in years]
     return bars, labels, peak_year, peak_val
+
+
+_YANG_PATTERN = re.compile(
+    r'\b(?:S\.?\s*G\.?\s*Yang|SG\s*Yang|Yang\s*S\.?\s*G\.?)\b',
+    flags=re.IGNORECASE,
+)
+
+
+def highlight_yang(authors):
+    """Wrap Yang's name with <span class="self">…</span> in an author string."""
+    return _YANG_PATTERN.sub(lambda m: f'<span class="self">{m.group(0)}</span>',
+                             html.escape(authors))
+
+
+def build_top_cited_html(articles, n=5):
+    """Build the <li class='pub'>…</li> blocks for the top-N cited papers."""
+    def cite_count(a):
+        return int(((a.get("cited_by") or {}).get("value")) or 0)
+
+    top = sorted(articles, key=cite_count, reverse=True)[:n]
+
+    items = []
+    for art in top:
+        title = html.escape(art.get("title") or "")
+        link = art.get("link") or ""
+        authors_html = highlight_yang(art.get("authors") or "")
+        publication = html.escape(art.get("publication") or "")
+        year = html.escape(str(art.get("year") or ""))
+        cites = cite_count(art)
+
+        title_html = (
+            f'<a href="{html.escape(link)}" target="_blank" rel="noopener">{title}</a>'
+            if link else title
+        )
+
+        items.append(f'''        <li class="pub">
+          <div class="num">★</div>
+          <div class="body">
+            <div class="title">{title_html}</div>
+            <div class="authors">{authors_html}</div>
+            <div class="meta"><span class="journal">{publication}</span><span class="yr">{year}</span></div>
+          </div>
+          <div class="stats">
+            <span class="cites">{cites:,}</span>
+            <span class="cites-l">Citations</span>
+          </div>
+        </li>''')
+
+    return "\n\n".join(items)
 
 
 def replace_pill(html, label, new_value):
@@ -160,6 +212,18 @@ def update_html(data):
         f'<span>peak &middot; {peak_val} ({peak_year})</span>',
         html,
     )
+
+    if data.get("articles"):
+        top_block = build_top_cited_html(data["articles"], n=5)
+        html = re.sub(
+            r'(<section class="section" id="highly-cited">.*?<ol class="pubs">)'
+            r'(.*?)'
+            r'(\s*</ol>\s*</section>)',
+            lambda m: f'{m.group(1)}\n\n{top_block}\n\n      {m.group(3).lstrip()}',
+            html,
+            count=1,
+            flags=re.DOTALL,
+        )
 
     HTML_PATH.write_text(html, encoding="utf-8")
 

@@ -43,6 +43,9 @@ jobs:
           else
             DATE=$(date -u +%Y-%m-%d)
             git commit -m "Auto-sync Scholar metrics (${DATE})"
+            # Rebase on top of any commits pushed after this run started,
+            # so the push can fast-forward instead of being rejected.
+            git pull --rebase origin main
             git push
             echo "Committed updated metrics."
           fi

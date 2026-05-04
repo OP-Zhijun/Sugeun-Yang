@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-28T13:21:45.938355+00:00",
+  "fetched_at": "2026-05-04T11:08:31.020619+00:00",
   "person": {
     "openalex_id": "A5042254280",
     "name": "Su-Geun Yang",
@@ -1888,8 +1888,8 @@
       "is_external": true
     },
     {
-      "id": "https://openalex.org/A5100668562",
-      "name": "Han-Sung Kim",
+      "id": "https://openalex.org/A5109342497",
+      "name": "Han Sung Kim",
       "orcid": "https://orcid.org/0000-0003-2147-6553",
       "papers": 1,
       "first_year": 2025,
@@ -4113,14 +4113,6 @@
       "is_external": true
     },
     {
-      "id": "https://openalex.org/I47141704",
-      "name": "Daewoong Pharmaceutical (South Korea)",
-      "country": "KR",
-      "type": "company",
-      "papers": 3,
-      "is_external": true
-    },
-    {
       "id": "https://openalex.org/I4210151417",
       "name": "Korea Research Institute of Chemical Technology",
       "country": "KR",
@@ -4133,6 +4125,14 @@
       "name": "Yeungnam University",
       "country": "KR",
       "type": "education",
+      "papers": 3,
+      "is_external": true
+    },
+    {
+      "id": "https://openalex.org/I47141704",
+      "name": "Daewoong Pharmaceutical (South Korea)",
+      "country": "KR",
+      "type": "company",
       "papers": 3,
       "is_external": true
     },
@@ -5049,22 +5049,6 @@
       ]
     },
     {
-      "id": "https://openalex.org/W2013150522",
-      "year": 2013,
-      "title": "rhEGF-containing thermosensitive and mucoadhesive polymeric sol–gel for endoscopic treatment of gastric ulcer and bleeding",
-      "doi": "https://doi.org/10.1177/0885328213499948",
-      "venue": "Journal of Biomaterials Applications",
-      "co_author_ids": [
-        "https://openalex.org/A5053188549",
-        "https://openalex.org/A5043141932",
-        "https://openalex.org/A5054404752",
-        "https://openalex.org/A5006370183",
-        "https://openalex.org/A5087822868",
-        "https://openalex.org/A5063446251",
-        "https://openalex.org/A5072803749"
-      ]
-    },
-    {
       "id": "https://openalex.org/W4403734307",
       "year": 2024,
       "title": "Synthesis of Silver Nanoparticles and Gold Nanoparticles Used as Biosensors for the Detection of Human Serum Albumin-Diagnosed Kidney Disease",
@@ -5130,21 +5114,6 @@
         "https://openalex.org/A5110155990",
         "https://openalex.org/A5108101906",
         "https://openalex.org/A5034418015"
-      ]
-    },
-    {
-      "id": "https://openalex.org/W4292239815",
-      "year": 2022,
-      "title": "Tumor-mediated 4-1BB induces tumor proliferation and metastasis in the colorectal cancer cells",
-      "doi": "https://doi.org/10.1016/j.lfs.2022.120899",
-      "venue": "Life Sciences",
-      "co_author_ids": [
-        "https://openalex.org/A5100776690",
-        "https://openalex.org/A5059446452",
-        "https://openalex.org/A5067551723",
-        "https://openalex.org/A5069089381",
-        "https://openalex.org/A5051742735",
-        "https://openalex.org/A5070792652"
       ]
     },
     {
@@ -5240,6 +5209,22 @@
       ]
     },
     {
+      "id": "https://openalex.org/W2013150522",
+      "year": 2013,
+      "title": "rhEGF-containing thermosensitive and mucoadhesive polymeric sol–gel for endoscopic treatment of gastric ulcer and bleeding",
+      "doi": "https://doi.org/10.1177/0885328213499948",
+      "venue": "Journal of Biomaterials Applications",
+      "co_author_ids": [
+        "https://openalex.org/A5053188549",
+        "https://openalex.org/A5043141932",
+        "https://openalex.org/A5054404752",
+        "https://openalex.org/A5006370183",
+        "https://openalex.org/A5087822868",
+        "https://openalex.org/A5063446251",
+        "https://openalex.org/A5072803749"
+      ]
+    },
+    {
       "id": "https://openalex.org/W2046556369",
       "year": 2013,
       "title": "Rabbit gastric ulcer models: comparison and evaluation of acetic acid-induced ulcer and mucosectomy-induced ulcer",
@@ -5304,6 +5289,21 @@
       "venue": "Journal of Pharmaceutical Investigation",
       "co_author_ids": [
         "https://openalex.org/A5073364524"
+      ]
+    },
+    {
+      "id": "https://openalex.org/W4292239815",
+      "year": 2022,
+      "title": "Tumor-mediated 4-1BB induces tumor proliferation and metastasis in the colorectal cancer cells",
+      "doi": "https://doi.org/10.1016/j.lfs.2022.120899",
+      "venue": "Life Sciences",
+      "co_author_ids": [
+        "https://openalex.org/A5100776690",
+        "https://openalex.org/A5059446452",
+        "https://openalex.org/A5067551723",
+        "https://openalex.org/A5069089381",
+        "https://openalex.org/A5051742735",
+        "https://openalex.org/A5070792652"
       ]
     },
     {
@@ -5911,7 +5911,7 @@
         "https://openalex.org/A5108906866",
         "https://openalex.org/A5029641606",
         "https://openalex.org/A5075061660",
-        "https://openalex.org/A5100668562",
+        "https://openalex.org/A5109342497",
         "https://openalex.org/A5108405380",
         "https://openalex.org/A5090977989",
         "https://openalex.org/A5027658078"
@@ -5968,20 +5968,20 @@
           "weight": 99
         },
         {
-          "name": "Spaceflight effects on biology",
-          "weight": 80
-        },
-        {
           "name": "Advanced MRI Techniques and Applications",
-          "weight": 80
+          "weight": 82
         },
         {
           "name": "MRI in cancer diagnosis",
-          "weight": 80
+          "weight": 82
         },
         {
           "name": "Gastric Cancer Management and Outcomes",
-          "weight": 80
+          "weight": 82
+        },
+        {
+          "name": "Spaceflight effects on biology",
+          "weight": 81
         }
       ]
     },
@@ -5994,23 +5994,23 @@
         },
         {
           "name": "Lanthanide and Transition Metal Complexes",
-          "weight": 40
+          "weight": 42
         },
         {
           "name": "Advanced Nanomaterials in Catalysis",
-          "weight": 25
+          "weight": 26
         },
         {
           "name": "Polymer Surface Interaction Studies",
-          "weight": 20
+          "weight": 21
         },
         {
           "name": "Nanocluster Synthesis and Applications",
-          "weight": 15
+          "weight": 16
         },
         {
           "name": "Electrospun Nanofibers in Biomedical Applications",
-          "weight": 15
+          "weight": 16
         }
       ]
     },
@@ -6023,23 +6023,23 @@
         },
         {
           "name": "Cancer therapeutics and mechanisms",
-          "weight": 63
+          "weight": 71
         },
         {
           "name": "Cancer, Lipids, and Metabolism",
-          "weight": 50
+          "weight": 57
         },
         {
           "name": "Protein Degradation and Inhibitors",
-          "weight": 49
+          "weight": 56
         },
         {
           "name": "Histone Deacetylase Inhibitors Research",
-          "weight": 38
+          "weight": 43
         },
         {
           "name": "Microbial Inactivation Methods",
-          "weight": 38
+          "weight": 43
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
-  "total_citations": 4373,
-  "y5_citations": 2431,
+  "total_citations": 4385,
+  "y5_citations": 2443,
   "h_index": 35,
   "y5_h_index": 25,
   "i10_index": 74,
@@ -11,9 +11,9 @@
     "2011": 105,
     "2012": 106,
     "2013": 135,
-    "2014": 171,
+    "2014": 173,
     "2015": 160,
-    "2016": 158,
+    "2016": 156,
     "2017": 197,
     "2018": 188,
     "2019": 223,
@@ -22,8 +22,8 @@
     "2022": 411,
     "2023": 417,
     "2024": 533,
-    "2025": 557,
-    "2026": 175
+    "2025": 559,
+    "2026": 185
   },
   "articles": [
     {
@@ -33,7 +33,7 @@
       "authors": "R Baskaran, J Lee, SG Yang",
       "publication": "Biomaterials research 22 (1), 25, 2018",
       "cited_by": {
-        "value": 646,
+        "value": 648,
         "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=11017256731585924847",
         "serpapi_link": "https://serpapi.com/search.json?cites=11017256731585924847&engine=google_scholar&hl=en",
         "cites_id": "11017256731585924847"
@@ -47,7 +47,7 @@
       "authors": "JS Guthi, SG Yang, G Huang, S Li, C Khemtong, CW Kessinger, M Peyton, ...",
       "publication": "Molecular pharmaceutics 7 (1), 32-40, 2010",
       "cited_by": {
-        "value": 259,
+        "value": 260,
         "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=3435560212659049934",
         "serpapi_link": "https://serpapi.com/search.json?cites=3435560212659049934&engine=google_scholar&hl=en",
         "cites_id": "3435560212659049934"
@@ -159,7 +159,7 @@
       "authors": "M Kim, SG Yang, JM Kim, JW Lee, YS Kim, JI Lee",
       "publication": "International journal of molecular medicine 30 (3), 473-479, 2012",
       "cited_by": {
-        "value": 116,
+        "value": 117,
         "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=13484796374835337379",
         "serpapi_link": "https://serpapi.com/search.json?cites=13484796374835337379&engine=google_scholar&hl=en",
         "cites_id": "13484796374835337379"
@@ -173,7 +173,7 @@
       "authors": "DH Kim, JM Seo, KJ Shin, SG Yang",
       "publication": "Biomaterials research 25 (1), 42, 2021",
       "cited_by": {
-        "value": 107,
+        "value": 108,
         "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=4016965207215915602",
         "serpapi_link": "https://serpapi.com/search.json?cites=4016965207215915602&engine=google_scholar&hl=en",
         "cites_id": "4016965207215915602"
@@ -187,7 +187,7 @@
       "authors": "H Yim, SG Yang, YS Jeon, IS Park, M Kim, DH Lee, YH Bae, K Na",
       "publication": "Biomaterials 32 (22), 5187-5194, 2011",
       "cited_by": {
-        "value": 87,
+        "value": 88,
         "link": "https://scholar.google.com/scholar?oi=bibs&hl=en&cites=10750493468794928508",
         "serpapi_link": "https://serpapi.com/search.json?cites=10750493468794928508&engine=google_scholar&hl=en",
         "cites_id": "10750493468794928508"
@@ -307,6 +307,6 @@
       "year": "2010"
     }
   ],
-  "fetched_at": "2026-04-28T13:21:46.170491+00:00",
+  "fetched_at": "2026-05-04T11:08:31.675196+00:00",
   "source": "SerpAPI \u00b7 google_scholar_author"
 }
